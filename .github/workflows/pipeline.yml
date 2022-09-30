@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
+      - uses: supercharge/mongodb-github-action@1.8.0
       - name: npm install
         run: npm install
       - name: lint
@@ -29,6 +30,7 @@ jobs:
           severity: error
           details: Build failed
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}  
+      
       - name: test
         env:
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
