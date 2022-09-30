@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+jest.setTimeout(60000)
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
