@@ -30,6 +30,9 @@ jobs:
           details: Build failed
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}  
       - name: test
+        env:
+          TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+          TEST_SECRET: ${{ secrets.TEST_SECRET }}
         run: npm run test
       - name: e2e tests
         uses: cypress-io/github-action@v4
