@@ -66,7 +66,6 @@ describe('Blogtest', () => {
     await user.click(likeButton)
     await user.click(likeButton)
 
-    console.log(onLike.mock.calls)
     expect(onLike.mock.calls).toHaveLength(2)
   })
 })
