@@ -6,7 +6,7 @@
     "scripts": {
       "install": "cd ./blogilista && npm install && cd ../bloglist-frontend && npm install --include=dev",
       "build": "cd ./bloglist-frontend && npm run build",
-      "lint": "cd ./bloglist-frontend && npm run eslint",
+      "eslint": "cd ./blogilista && npm run eslint && cd ../bloglist-frontend && npm run eslint",
       "test-backend": "cd ./blogilista && npm run test",
       "start-test": "cd ./blogilista && npm run test:cypress",
       "test-e2e": "cypress run --project ./bloglist-frontend",

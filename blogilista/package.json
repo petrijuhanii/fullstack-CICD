@@ -6,7 +6,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node index.js",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit",
-    "start:test": "cross-env NODE_ENV=test node index.js"
+    "start:test": "cross-env NODE_ENV=test node index.js",
+    "eslint": "eslint ."
   },
   "author": "Petri Vainio",
   "license": "MIT",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "eslint": "^8.24.0",
     "jest": "^28.1.2",
     "json-server": "^0.17.0",
     "nodemon": "^2.0.19",

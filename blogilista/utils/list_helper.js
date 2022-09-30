@@ -1,6 +1,6 @@
-var lodash = require('lodash');
+var lodash = require('lodash')
 
-const dummy = (blogs) => {
+const dummy = () => {
   return 1
 }
 
@@ -24,15 +24,15 @@ const mostBlogs = (blogs) => {
     return []
   } 
 
-  const countAuthors = lodash.countBy(blogs, "author");
+  const countAuthors = lodash.countBy(blogs, 'author')
   const mostCommonAuthor = Object.keys(countAuthors).reduce((x, y) => {
     return countAuthors[x] > countAuthors[y] 
       ? x 
-      : y;
-  });
+      : y
+  })
 
   return {author: mostCommonAuthor,
-          blogs: countAuthors[mostCommonAuthor], }
+    blogs: countAuthors[mostCommonAuthor], }
 }
 
 const mostLikes = (blogs) => {
@@ -54,7 +54,7 @@ const mostLikes = (blogs) => {
     return prev.likes > current.likes 
       ? prev  
       : current
-})
+  })
 }
 
 module.exports = {

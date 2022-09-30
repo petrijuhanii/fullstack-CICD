@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const app = require('../app')
@@ -6,7 +7,7 @@ const Blog = require('../models/blog')
 const helper = require('./test_helper')
 const bcrypt = require('bcrypt')
 const User = require('../models/user')
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken')
 
 beforeEach(async () => {
   await Blog.deleteMany({})
@@ -32,29 +33,29 @@ test('blogs are returned as json', async () => {
     .expect(200)
     .expect('Content-Type', /application\/json/)
 })
-describe("addition of a new blog", () => {
-  let token = null;
+describe('addition of a new blog', () => {
+  let token = null
   beforeAll(async () => {
-    await User.deleteMany({});
+    await User.deleteMany({})
 
-    const passwordHash = await bcrypt.hash("20098719", 10);
-    const user = await new User({ username: "add", passwordHash }).save();
+    const passwordHash = await bcrypt.hash('20098719', 10)
+    const user = await new User({ username: 'add', passwordHash }).save()
 
-    const userForToken = { username: "add", id: user.id };
-    return (token = jwt.sign(userForToken, process.env.SECRET));
-  });
+    const userForToken = { username: 'add', id: user.id }
+    return (token = jwt.sign(userForToken, process.env.SECRET))
+  })
 
   test('a valid blog can be added by authorized user', async () => {
     const newBlog = {
-          title: "How to async/await",
-          author: "Velho",
-          url: "www.welho.xyz",
-          likes: 9,
+      title: 'How to async/await',
+      author: 'Velho',
+      url: 'www.welho.xyz',
+      likes: 9,
     }
     
     await api
       .post('/api/blogs')
-      .set("Authorization", `Bearer ${token}`)
+      .set('Authorization', `Bearer ${token}`)
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -71,14 +72,14 @@ describe("addition of a new blog", () => {
 
   test('blog without likes have zero likes ', async () => {
     const newBlog = {
-      title: "How to async/await",
-      author: "Velho",
-      url: "www.welho.xyz",
+      title: 'How to async/await',
+      author: 'Velho',
+      url: 'www.welho.xyz',
     }
 
     await api
       .post('/api/blogs')
-      .set("Authorization", `Bearer ${token}`)
+      .set('Authorization', `Bearer ${token}`)
       .send(newBlog)
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -94,17 +95,17 @@ describe("addition of a new blog", () => {
   test('blogs identified by id', async () => {
     const blogsAtEnd = await helper.blogsInDb()
     expect(blogsAtEnd[0].id).toBeDefined()
-  });
+  })
 
   test('blog without title and url is not added', async () => {
     const newBlog = {
-      author: "Velho",
-      url: "www.welho.xyz",
+      author: 'Velho',
+      url: 'www.welho.xyz',
     }
 
     await api
       .post('/api/blogs')
-      .set("Authorization", `Bearer ${token}`)
+      .set('Authorization', `Bearer ${token}`)
       .send(newBlog)
       .expect(400)
 
@@ -114,33 +115,33 @@ describe("addition of a new blog", () => {
   })
 })
 describe('deletion of a blog', () => {
-  let token = null;
+  let token = null
 
   beforeEach(async () => {
-    await Blog.deleteMany({});
-    await User.deleteMany({});
+    await Blog.deleteMany({})
+    await User.deleteMany({})
 
-    const passwordHash = await bcrypt.hash("193284", 10);
-    const user = await new User({ username: "delete", passwordHash }).save();
+    const passwordHash = await bcrypt.hash('193284', 10)
+    const user = await new User({ username: 'delete', passwordHash }).save()
 
-    const userToken = { username: "delete", id: user.id };
-    token = jwt.sign(userToken, process.env.SECRET);
+    const userToken = { username: 'delete', id: user.id }
+    token = jwt.sign(userToken, process.env.SECRET)
 
     const addBlog = {
-      title: "Hello world",
-      author: "delete",
-      url: "xyz.com",
-    };
+      title: 'Hello world',
+      author: 'delete',
+      url: 'xyz.com',
+    }
 
     await api
-      .post("/api/blogs")
-      .set("Authorization", `Bearer ${token}`)
+      .post('/api/blogs')
+      .set('Authorization', `Bearer ${token}`)
       .send(addBlog)
       .expect(201)
-      .expect("Content-Type", /application\/json/);
+      .expect('Content-Type', /application\/json/)
 
-    return token;
-  });
+    return token
+  })
 
 
   test('succeeds with status code 204 if id is valid', async () => {
@@ -149,7 +150,7 @@ describe('deletion of a blog', () => {
 
     await api
       .delete(`/api/blogs/${blogToDelete.id}`)
-      .set("Authorization", `Bearer ${token}`)
+      .set('Authorization', `Bearer ${token}`)
       .expect(204)
 
     const blogsAtEnd = await helper.blogsInDb()
@@ -163,28 +164,28 @@ describe('deletion of a blog', () => {
     expect(titles).not.toContain(blogToDelete.title)
   })
 
-  test("fails with status code 401 if user is not authorized", async () => {
+  test('fails with status code 401 if user is not authorized', async () => {
     const blogsAtStart = await helper.blogsInDb()
-    const blogToDelete = blogsAtStart[0];
+    const blogToDelete = blogsAtStart[0]
 
-    tokenString = "";
+    tokenString = ''
 
     await api
       .delete(`/api/blogs/${blogToDelete.id}`)
-      .set("Authorization", `Bearer ${tokenString}`)
-      .expect(401);
+      .set('Authorization', `Bearer ${tokenString}`)
+      .expect(401)
 
     const blogsAtEnd = await helper.blogsInDb()
 
-    expect(blogsAtStart).toEqual(blogsAtEnd);
-  });
+    expect(blogsAtStart).toEqual(blogsAtEnd)
+  })
 })
 
 test('blog amount of likes is changed', async () => {
-   const updatedBlog = {
-    title: "How to Java",
-    author: "Petti",
-    url: "www.jeejjee.xyz",
+  const updatedBlog = {
+    title: 'How to Java',
+    author: 'Petti',
+    url: 'www.jeejjee.xyz',
     likes: 77
   }
 

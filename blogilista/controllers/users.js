@@ -11,30 +11,30 @@ usersRouter.post('/', async (request, response) => {
       error: 'username must be unique'
     })
   }
-  const usernameRequired = username  === '' ? false : true;
+  const usernameRequired = username  === '' ? false : true
   if(!usernameRequired){
     return response.status(400).json({
-        error: 'username must exist'
-      })
+      error: 'username must exist'
+    })
   }
-  const shortUsername = username.length  < 3 ? false : true;
+  const shortUsername = username.length  < 3 ? false : true
   if(!shortUsername){
     return response.status(400).json({
-        error: 'username length must contain at least 3 character'
-      })
+      error: 'username length must contain at least 3 character'
+    })
   }
 
-  const passwordRequired = password  === '' ? false : true;
+  const passwordRequired = password  === '' ? false : true
   if(!passwordRequired){
     return response.status(400).json({
-        error: 'password must exist'
-      })
+      error: 'password must exist'
+    })
   }
-  const shortPassword = password.length  < 3 ? false : true;
+  const shortPassword = password.length  < 3 ? false : true
   if(!shortPassword){
     return response.status(400).json({
-        error: 'password length must contain at least 3 character'
-      })
+      error: 'password length must contain at least 3 character'
+    })
   }
 
   const saltRounds = 10
@@ -52,8 +52,8 @@ usersRouter.post('/', async (request, response) => {
   response.status(201).json(savedUser)
 })
 usersRouter.get('/', async (request, response) => {
-    const users = await User.find({}).populate('blogs',{title:1,author:1,url:1})
-    response.json(users)
-  })
+  const users = await User.find({}).populate('blogs',{title:1,author:1,url:1})
+  response.json(users)
+})
   
 module.exports = usersRouter

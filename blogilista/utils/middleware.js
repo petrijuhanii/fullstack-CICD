@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const logger = require('./logger')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
@@ -37,14 +38,14 @@ const tokenExtractor = (request, response, next) => {
 }
 
 const userExtractor = async (request, response, next) => {
-  const token = request.token;
+  const token = request.token
   if (token) {
-    const decodedToken = jwt.verify(token, process.env.SECRET);
-    const user = await User.findById(decodedToken.id);
-    request.user = user;
+    const decodedToken = jwt.verify(token, process.env.SECRET)
+    const user = await User.findById(decodedToken.id)
+    request.user = user
   }
 
-  next();
+  next()
 }
 
 module.exports = {
