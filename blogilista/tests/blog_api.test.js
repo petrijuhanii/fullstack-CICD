@@ -14,14 +14,14 @@ let token=null
 beforeEach(async () => {
   console.log('done')
   await Blog.deleteMany({})
+  console.log('done')
   await User.deleteMany({})
-  console.log('done2')
+
   const passwordHash = await bcrypt.hash('20098719', 10)
   const user = await new User({ username: 'add', passwordHash }).save()
-  console.log('done3')
+
   const userForToken = { username: 'add', id: user.id }
   token = jwt.sign(userForToken, process.env.SECRET)
-  console.log('done4')
   await Blog.insertMany(helper.initialBlogs.map(n => ({ ...n, user: user._id })))
 })
 
