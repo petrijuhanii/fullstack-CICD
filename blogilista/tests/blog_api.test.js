@@ -9,18 +9,32 @@ const bcrypt = require('bcryptjs')
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 
+let token=null
+
 beforeEach(async () => {
   await Blog.deleteMany({})
-  await Blog.insertMany(helper.initialBlogs)
+  await User.deleteMany({})
+
+  const passwordHash = await bcrypt.hash('20098719', 10)
+  const user = await new User({ username: 'add', passwordHash }).save()
+
+  const userForToken = { username: 'add', id: user.id }
+  token = jwt.sign(userForToken, process.env.SECRET)
+
+  await Blog.insertMany(helper.initialBlogs.map(n => ({ ...n, user: user._id })))
 })
 
 test('all blogs are returned', async () => {
   const response = await api.get('/api/blogs')
+    .set({ 'Authorization': `Bearer ${token}` })
+    .expect(200)
   expect(response.body).toHaveLength(helper.initialBlogs.length)
 })
   
 test('a specific blog is within the returned blogs', async () => {
   const response = await api.get('/api/blogs')
+    .set({ 'Authorization': `Bearer ${token}` })
+    .expect(200)
   const contents = response.body.map(r => r.title)
   expect(contents).toContain(
     'How to Java'
@@ -30,20 +44,11 @@ test('a specific blog is within the returned blogs', async () => {
 test('blogs are returned as json', async () => {
   await api
     .get('/api/blogs')
+    .set({ 'Authorization': `Bearer ${token}` })
     .expect(200)
     .expect('Content-Type', /application\/json/)
 })
 describe('addition of a new blog', () => {
-  let token = null
-  beforeAll(async () => {
-    await User.deleteMany({})
-
-    const passwordHash = await bcrypt.hash('20098719', 10)
-    const user = await new User({ username: 'add', passwordHash }).save()
-
-    const userForToken = { username: 'add', id: user.id }
-    return (token = jwt.sign(userForToken, process.env.SECRET))
-  })
 
   test('a valid blog can be added by authorized user', async () => {
     const newBlog = {
