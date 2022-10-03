@@ -12,9 +12,7 @@ const jwt = require('jsonwebtoken')
 let token=null
 
 beforeEach(async () => {
-  console.log('done')
   await Blog.deleteMany({})
-  console.log('done')
   await User.deleteMany({})
 
   const passwordHash = await bcrypt.hash('20098719', 10)

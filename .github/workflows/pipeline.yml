@@ -36,13 +36,13 @@ jobs:
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
           SECRET: ${{ secrets.SECRET }}
         run: npm run test
-      - name: e2e tests
+      - name: test:e2e
         env:
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
           SECRET: ${{ secrets.SECRET }}
         uses: cypress-io/github-action@v4
         with:
-          command: npm run test:e2e
+          project: ./bloglist-frontend
           start: npm run start-pred
           wait-on: http://localhost:3003
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action

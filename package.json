@@ -10,7 +10,7 @@
       "test": "cd ./blogilista && npm run test",
       "test:e2e": "cypress run --project ./bloglist-frontend",
       "start": "cd ./blogilista && npm start",
-      "start-pred": "cd ./blogilista && npm run start:test && cd ../bloglist-frontend && npm start"
+      "start-pred": "cd ./blogilista && npm run start:test"
     },
     "devDependencies": {
       "cypress": "^10.7.0"
