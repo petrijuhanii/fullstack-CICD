@@ -8,9 +8,8 @@
       "build": "cd ./bloglist-frontend && npm run build",
       "eslint": "cd ./blogilista && npm run eslint && cd ../bloglist-frontend && npm run eslint",
       "test": "cd ./blogilista && npm run test",
-      "start-test": "cd ./blogilista && npm run test:cypress",
       "test-e2e": "cypress run --project ./bloglist-frontend",
-      "start": "cd ./backend && npm run start"
+      "start": "cd ./blogilista && npm run start"
     },
     "devDependencies": {
       "cypress": "^10.7.0"
