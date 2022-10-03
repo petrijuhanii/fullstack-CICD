@@ -43,8 +43,8 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           command: npm run test:e2e
-          start: npm run start
-          wait-on: http://localhost:5000
+          start: npm run start-pred
+          wait-on: http://localhost:3000
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
