@@ -34,6 +34,7 @@ app.use('/api/login', loginRouter)
 if (process.env.NODE_ENV === 'test') {
   const testingRouter = require('./controllers/testing')
   app.use('/api/testing', testingRouter)
+  console.log('server running in port ' + config.PORT)
 }
 
 app.use(middleware.unknownEndpoint)

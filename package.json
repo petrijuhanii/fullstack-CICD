@@ -8,7 +8,7 @@
       "build": "cd ./bloglist-frontend && npm run build",
       "eslint": "cd ./blogilista && npm run eslint && cd ../bloglist-frontend && npm run eslint",
       "test": "cd ./blogilista && npm run test",
-      "test:e2e": "cypress run --project ./bloglist-frontend",
+      "test-e2e": "cypress run --project ./bloglist-frontend",
       "start": "cd ./blogilista && npm start",
       "start-pred": "cd ./blogilista && npm run start:test"
     },

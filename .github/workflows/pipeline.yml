@@ -30,13 +30,12 @@ jobs:
           severity: error
           details: Build failed
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}  
-      
       - name: test
         env:
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
           SECRET: ${{ secrets.SECRET }}
         run: npm run test
-      - name: test:e2e
+      - name: test-e2e
         env:
           TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
           SECRET: ${{ secrets.SECRET }}
@@ -44,6 +43,7 @@ jobs:
         with:
           project: ./bloglist-frontend
           start: npm run start-pred
+          wait-on: http://localhost:3003
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
