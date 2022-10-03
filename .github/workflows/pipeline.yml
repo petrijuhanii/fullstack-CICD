@@ -10,6 +10,7 @@ on:
 
 jobs: 
   simple_deployment_pipeline:
+    if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -63,10 +64,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
-      - name: Add tag success
-        uses: rjstone/discord-webhook-notify@v1.0.4
-        if: success()
-        with:
-            severity: info
-            details: A new version of Pokedex deployed
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+  #    - name: Add tag success
+  #      uses: rjstone/discord-webhook-notify@v1.0.4
+  #      if: success()
+  #      with:
+  #          severity: info
+  #          details: A new version of Pokedex deployed
+  #          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
