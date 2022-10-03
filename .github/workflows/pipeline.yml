@@ -46,9 +46,9 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "powerful-fortress-45246" #Must be unique in Heroku
+          heroku_app_name: "guarded-bayou-22541" #Must be unique in Heroku
           heroku_email: "petri.vainio97@gmail.com"
-          healthcheck: "https://powerful-fortress-45246.herokuapp.com/health"
+          healthcheck: "https://guarded-bayou-22541.herokuapp.com/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
 
