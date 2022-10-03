@@ -42,7 +42,7 @@ jobs:
         uses: cypress-io/github-action@v4
         with:
           project: ./bloglist-frontend
-          start: npm run start-pred
+          start: npm run start-prod
           wait-on: http://localhost:3003
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
